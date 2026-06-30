@@ -1,0 +1,27 @@
+graph TD
+    subgraph UI [Streamlit UI]
+        T1[Funnel]
+        T2[Two Sources]
+        T3[Six Questions]
+        T4[Explorer]
+        T5[Live Tagger]
+    end
+    subgraph DATA [Data layer]
+        Q[tagged_reviews.csv]
+        L[qualitative_coded.csv]
+    end
+    subgraph EXT [External]
+        AN[Anthropic API]
+    end
+    USER[User review text]
+    RES[Tag result JSON]
+    Q --> T1
+    Q --> T2
+    Q --> T3
+    Q --> T4
+    L --> T2
+    L --> T4
+    USER --> T5
+    T5 --> AN
+    AN --> RES
+    RES --> T5

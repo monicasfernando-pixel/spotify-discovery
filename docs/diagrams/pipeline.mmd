@@ -1,0 +1,38 @@
+graph TD
+    subgraph S1 [1. Collect]
+        AS[App Store RSS]
+        GP[Google Play scraper]
+        RD[Reddit export]
+        CM[Community forum]
+    end
+    subgraph S2 [2. Raw data]
+        R1[appstore_raw.csv]
+        R2[gplay_raw.csv]
+        SRC1[reddit_threads.csv]
+        SRC2[Community_Data.pdf]
+    end
+    subgraph S3 [3. Process]
+        TAG[tag_reviews.py]
+        HAND[Hand coding]
+    end
+    subgraph S4 [4. Processed]
+        P1[tagged_reviews.csv]
+        P2[qualitative_coded.csv]
+    end
+    subgraph S5 [5. Application]
+        ST[Streamlit app]
+        LIVE[Live Tagger]
+    end
+    AS --> R1
+    GP --> R2
+    RD --> SRC1
+    CM --> SRC2
+    R1 --> TAG
+    R2 --> TAG
+    SRC1 --> HAND
+    SRC2 --> HAND
+    TAG --> P1
+    HAND --> P2
+    P1 --> ST
+    P2 --> ST
+    ST --> LIVE

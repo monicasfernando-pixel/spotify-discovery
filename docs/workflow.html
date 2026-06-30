@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spotify Discovery — Workflow & Architecture</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #0f1115;
+      color: #f2f2f2;
+      line-height: 1.5;
+    }
+    header {
+      padding: 28px 32px 12px;
+      border-bottom: 1px solid #262b36;
+      background: linear-gradient(135deg, #11261b 0%, #14161c 55%);
+    }
+    header h1 { margin: 0 0 8px; font-size: 1.75rem; }
+    header p { margin: 0; color: #b9bec7; max-width: 720px; }
+    main { padding: 24px 32px 48px; max-width: 1200px; }
+    section {
+      margin-bottom: 40px;
+      background: #181a20;
+      border: 1px solid #262b36;
+      border-radius: 14px;
+      padding: 20px 24px 28px;
+    }
+    section h2 {
+      margin: 0 0 6px;
+      font-size: 1.25rem;
+      color: #1ed760;
+    }
+    section p.caption {
+      margin: 0 0 16px;
+      color: #9aa0ab;
+      font-size: 0.92rem;
+    }
+    .diagram {
+      overflow-x: auto;
+      background: #12141a;
+      border-radius: 10px;
+      padding: 16px;
+      border: 1px solid #2a2f3a;
+    }
+    .mermaid { text-align: center; }
+    footer {
+      padding: 16px 32px 32px;
+      color: #6b7280;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Spotify Discovery — Workflow & Architecture</h1>
+    <p>Open this file in any browser (double-click). No Markdown preview or extensions required.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>1. End-to-end workflow</h2>
+      <p class="caption">
+        Raw CSVs: <code>data/raw/</code> and <code>data/sources/</code> ·
+        Processed: <code>data/processed/</code> · App: <code>app/app.py</code>
+      </p>
+      <div class="diagram">
+        <pre class="mermaid">
+graph TD
+    subgraph S1 [1. Collect]
+        AS[App Store RSS]
+        GP[Google Play scraper]
+        RD[Reddit export]
+        CM[Community forum]
+    end
+    subgraph S2 [2. Raw data]
+        R1[appstore_raw.csv]
+        R2[gplay_raw.csv]
+        SRC1[reddit_threads.csv]
+        SRC2[Community_Data.pdf]
+    end
+    subgraph S3 [3. Process]
+        TAG[tag_reviews.py]
+        HAND[Hand coding]
+    end
+    subgraph S4 [4. Processed]
+        P1[tagged_reviews.csv]
+        P2[qualitative_coded.csv]
+    end
+    subgraph S5 [5. Application]
+        ST[Streamlit app]
+        LIVE[Live Tagger]
+    end
+    AS --> R1
+    GP --> R2
+    RD --> SRC1
+    CM --> SRC2
+    R1 --> TAG
+    R2 --> TAG
+    SRC1 --> HAND
+    SRC2 --> HAND
+    TAG --> P1
+    HAND --> P2
+    P1 --> ST
+    P2 --> ST
+    ST --> LIVE
+        </pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Application architecture</h2>
+      <p class="caption">Streamlit tabs, data files, and optional Anthropic API for the Live Tagger.</p>
+      <div class="diagram">
+        <pre class="mermaid">
+graph TD
+    subgraph UI [Streamlit UI]
+        T1[Funnel]
+        T2[Two Sources]
+        T3[Six Questions]
+        T4[Explorer]
+        T5[Live Tagger]
+    end
+    subgraph DATA [Data layer]
+        Q[tagged_reviews.csv]
+        L[qualitative_coded.csv]
+    end
+    subgraph EXT [External]
+        AN[Anthropic API]
+    end
+    USER[User review text]
+    RES[Tag result JSON]
+    Q --> T1
+    Q --> T2
+    Q --> T3
+    Q --> T4
+    L --> T2
+    L --> T4
+    USER --> T5
+    T5 --> AN
+    AN --> RES
+    RES --> T5
+        </pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Source: WORKFLOW.md · Diagrams also saved as <code>docs/diagrams/*.mmd</code>
+  </footer>
+
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "dark",
+      themeVariables: {
+        primaryColor: "#1DB954",
+        primaryTextColor: "#f2f2f2",
+        lineColor: "#509bf5",
+        secondaryColor: "#181a20",
+        tertiaryColor: "#12141a",
+      },
+    });
+  </script>
+</body>
+</html>

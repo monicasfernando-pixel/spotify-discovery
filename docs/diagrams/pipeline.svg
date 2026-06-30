@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 720" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#509bf5"/>
+    </marker>
+    <style>
+      .title { fill: #1ed760; font-size: 18px; font-weight: 700; }
+      .box { fill: #181a20; stroke: #509bf5; stroke-width: 1.5; rx: 8; }
+      .stage { fill: #12141a; stroke: #262b36; stroke-width: 1; rx: 12; }
+      .label { fill: #f2f2f2; font-size: 13px; text-anchor: middle; }
+      .stage-label { fill: #9aa0ab; font-size: 12px; font-weight: 700; }
+      .line { stroke: #509bf5; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="920" height="720" fill="#0f1115"/>
+  <text x="460" y="36" class="title" text-anchor="middle">End-to-end workflow</text>
+
+  <!-- Stage boxes -->
+  <rect x="30" y="60" width="860" height="90" class="stage"/>
+  <text x="50" y="82" class="stage-label">1. Collect</text>
+  <rect x="70" y="95" width="170" height="40" class="box"/><text x="155" y="120" class="label">App Store RSS</text>
+  <rect x="270" y="95" width="170" height="40" class="box"/><text x="355" y="120" class="label">Google Play</text>
+  <rect x="470" y="95" width="170" height="40" class="box"/><text x="555" y="120" class="label">Reddit export</text>
+  <rect x="670" y="95" width="170" height="40" class="box"/><text x="755" y="120" class="label">Community forum</text>
+
+  <rect x="30" y="175" width="860" height="90" class="stage"/>
+  <text x="50" y="197" class="stage-label">2. Raw data</text>
+  <rect x="70" y="210" width="190" height="40" class="box"/><text x="165" y="235" class="label">appstore_raw.csv</text>
+  <rect x="290" y="210" width="190" height="40" class="box"/><text x="385" y="235" class="label">gplay_raw.csv</text>
+  <rect x="510" y="210" width="190" height="40" class="box"/><text x="605" y="235" class="label">reddit_threads.csv</text>
+  <rect x="730" y="210" width="130" height="40" class="box"/><text x="795" y="235" class="label">Community.pdf</text>
+
+  <rect x="30" y="290" width="860" height="90" class="stage"/>
+  <text x="50" y="312" class="stage-label">3. Process</text>
+  <rect x="220" y="325" width="220" height="40" class="box"/><text x="330" y="350" class="label">tag_reviews.py</text>
+  <rect x="480" y="325" width="220" height="40" class="box"/><text x="590" y="350" class="label">Hand coding</text>
+
+  <rect x="30" y="405" width="860" height="90" class="stage"/>
+  <text x="50" y="427" class="stage-label">4. Processed</text>
+  <rect x="220" y="440" width="260" height="40" class="box"/><text x="350" y="465" class="label">tagged_reviews.csv</text>
+  <rect x="520" y="440" width="260" height="40" class="box"/><text x="650" y="465" class="label">qualitative_coded.csv</text>
+
+  <rect x="30" y="520" width="860" height="90" class="stage"/>
+  <text x="50" y="542" class="stage-label">5. Application</text>
+  <rect x="260" y="555" width="200" height="40" class="box"/><text x="360" y="580" class="label">Streamlit app</text>
+  <rect x="500" y="555" width="200" height="40" class="box"/><text x="600" y="580" class="label">Live Tagger</text>
+
+  <!-- Vertical flow arrows -->
+  <line x1="155" y1="135" x2="165" y2="210" class="line"/>
+  <line x1="355" y1="135" x2="385" y2="210" class="line"/>
+  <line x1="555" y1="135" x2="605" y2="210" class="line"/>
+  <line x1="755" y1="135" x2="795" y2="210" class="line"/>
+  <line x1="165" y1="250" x2="330" y2="325" class="line"/>
+  <line x1="385" y1="250" x2="330" y2="325" class="line"/>
+  <line x1="605" y1="250" x2="590" y2="325" class="line"/>
+  <line x1="795" y1="250" x2="590" y2="325" class="line"/>
+  <line x1="330" y1="365" x2="350" y2="440" class="line"/>
+  <line x1="590" y1="365" x2="650" y2="440" class="line"/>
+  <line x1="350" y1="480" x2="360" y2="555" class="line"/>
+  <line x1="650" y1="480" x2="360" y2="555" class="line"/>
+  <line x1="600" y1="595" x2="600" y2="630" class="line"/>
+  <text x="460" y="680" fill="#6b7280" font-size="12" text-anchor="middle">data/raw � data/sources � data/processed � app/app.py</text>
+</svg>
